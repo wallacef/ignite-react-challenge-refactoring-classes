@@ -9,8 +9,20 @@ import { useField } from '@unform/core';
 
 import { Container } from './styles';
 
-export function Input({ name, icon: Icon, ...rest }) {
-  const inputRef = useRef(null);
+type TProps = {
+  icon?: any
+  name: string
+  value?: string
+  placeholder?: string
+}
+
+export function Input(props: TProps) {
+  const {
+    name,
+    icon: Icon,
+    ...otherProps
+  } = props
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
@@ -44,7 +56,7 @@ export function Input({ name, icon: Icon, ...rest }) {
         onBlur={handleInputBlur}
         defaultValue={defaultValue}
         ref={inputRef}
-        {...rest}
+        {...otherProps}
       />
     </Container>
   );

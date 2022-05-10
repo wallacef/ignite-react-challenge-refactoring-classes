@@ -1,17 +1,23 @@
 import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 
-export function Modal(props) {
-  const [modalStatus, setModalStatus] = useState()
+type TProps = {
+  isOpen: boolean
+  setIsOpen(): void
+  children: React.ReactNode
+}
+
+export function Modal({ isOpen, setIsOpen, children }: TProps) {
+  const [modalStatus, setModalStatus] = useState(false);
 
   useEffect(() => {
-    setModalStatus(props.isOpen)
-  }, [props.isOpen])
+    setModalStatus(isOpen)
+  }, [isOpen])
 
   return (
     <ReactModal
       shouldCloseOnOverlayClick={!false}
-      onRequestClose={props.setIsOpen}
+      onRequestClose={setIsOpen}
       isOpen={modalStatus}
       ariaHideApp={false}
       style={{
@@ -33,7 +39,7 @@ export function Modal(props) {
         },
       }}
     >
-      {props.children}
+      {children}
     </ReactModal>
   )
 }
